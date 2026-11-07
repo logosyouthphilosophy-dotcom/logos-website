@@ -42,7 +42,7 @@
       { id:"n2", title:"Workshop recording and handout are up", category:"workshop", pinned:false, author:"Logos team", published_at:iso(now - day), expires_on:null,
         body:"The recording of Professor Fricker's session and the two-page handout are now in the resources section. The handout is the one to read before you plan your essay. Please do not share either outside the programme." },
       { id:"n3", title:"Essay competition closes 15 December", category:"deadline", pinned:false, author:"Logos team", published_at:iso(now - 2*day), expires_on:"2026-12-15",
-        body:"Submissions for issue one close on **15 December 2026**. Essays are 1,000 to 2,500 words, in English, as a PDF with APA citations. Any essay containing AI-written text is disqualified automatically. Read the full guidelines on the [Submit page](/submit.html) before you send anything." },
+        body:"Submissions for issue one close on **15 December 2026**. Essays are up to 3,000 words, in English, as a PDF with APA citations. Any essay containing AI-written text is disqualified automatically. Read the full guidelines on the [Submit page](/submit.html) before you send anything." },
       { id:"n4", title:"Chapter lead applications close 8 November", category:"chapters", pinned:false, author:"Logos team", published_at:iso(now - 5*day), expires_on:"2026-11-08",
         body:"If you applied to lead a chapter in your city, we will be in touch after the deadline. Chapters launch local events in January and February." },
       { id:"n5", title:"An older notice that has expired", category:"general", pinned:false, author:"Logos team", published_at:iso(now - 30*day), expires_on:"2026-10-01",
@@ -51,12 +51,12 @@
 
     key_dates: [
       { id:"d1", label:"Chapter lead applications close", due_on:"2026-11-08", description:"Applications for the international chapters programme close. One chapter lead is chosen per city.", url:null },
-      { id:"d2", label:"Essay competition deadline", due_on:"2026-12-15", description:"Submissions for issue one of the journal close. 1,000 to 2,500 words, PDF, APA citations.", url:"/submit.html" }
+      { id:"d2", label:"Essay competition deadline", due_on:"2026-12-15", description:"Submissions for issue one of the journal close. Up to 3,000 words, PDF, APA citations.", url:"/submit.html" }
     ],
 
     faqs: [
       { id:"f1", sort:1, question:"Who is eligible to enter the competition?", answer:"Any student anywhere in the world who will be in high school on 15 December 2026, from Grade 9 (Year 10) to Grade 12 (Year 13). Your school does not need to teach philosophy." },
-      { id:"f2", sort:2, question:"How long should my essay be?", answer:"Between 1,000 and 2,500 words, not counting your reference list." },
+      { id:"f2", sort:2, question:"How long should my essay be?", answer:"Up to 3,000 words, not counting your reference list." },
       { id:"f3", sort:3, question:"Is there a theme?", answer:"No. Write on any philosophical question you want to argue about. What we ask for is an argument you develop and defend yourself, not a summary of what others have said." },
       { id:"f4", sort:4, question:"Which citation style and format?", answer:"APA style, with a full reference list at the end. Submit as a PDF, in English." },
       { id:"f5", sort:5, question:"Can I use AI?", answer:"Only for early research, such as tracking down sources or checking what a term means. Any AI-written text, including AI text run through a humaniser, disqualifies the essay automatically." },
