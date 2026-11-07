@@ -8,7 +8,7 @@
   const UNCONFIGURED = !cfg.url || !cfg.anonKey;
   const DEMO = params.has("demo");
   // Not configured and not in demo mode: a locked backend that signs nobody in.
-  const LOCKED = !DEMO && UNCONFIGURED;
+  let LOCKED = !DEMO && UNCONFIGURED;
 
   const CONTENT_TABLES = ["sessions","resources","notices","key_dates","faqs","contacts"];
 
@@ -16,7 +16,7 @@
   function demoBackend(){
     const db = JSON.parse(JSON.stringify(window.LOGOS_DEMO || {}));
     let signedIn = !LOCKED;
-    const locked = ()=>{ if(LOCKED) throw new Error("The hub is not connected to its database yet. Fill in members-config.js (see MEMBERS-HUB.md)."); };
+    const locked = ()=>{ if(LOCKED) throw new Error(UNCONFIGURED ? "The hub is not connected to its database yet. Fill in members-config.js (see MEMBERS-HUB.md)." : "The sign-in library could not be loaded. Check your connection and reload the page."); };
     const listeners = [];
     const uid = ()=>"demo-" + Math.random().toString(36).slice(2,9);
     const clone = (x)=>JSON.parse(JSON.stringify(x));
@@ -106,7 +106,9 @@
   try{
     window.LogosData = (DEMO || LOCKED) ? demoBackend() : supabaseBackend();
   }catch(e){
+    // Library failed to load: lock the page rather than fall back to demo data.
     console.error(e);
+    LOCKED = true;
     window.LogosData = Object.assign(demoBackend(), {mode:"demo", loadError:e.message});
   }
   window.LogosData.isDemo = DEMO;

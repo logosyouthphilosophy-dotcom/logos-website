@@ -166,7 +166,7 @@
     $("#adminLink").hidden = me.role !== "team";
     $("#demoBanner").hidden = !D.isDemo;
     data = await D.fetchAll();
-    renderDates(); renderNotices(); renderResources(); renderSessions(); renderFaq(); renderContacts(); initChecklist();
+    renderDates(); renderNotices(); renderResources(); renderSessions(); renderFaq(); renderContacts(); initChecklist(); initJumpNav();
     localStorage.setItem(LAST_KEY, String(Date.now()));
   }
 
@@ -312,6 +312,22 @@
       ${c.email ? `<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>` : ""}
       ${c.note ? `<p class="note">${esc(c.note)}</p>` : ""}
     </div>`).join("") : '<p class="mh-empty">Email logosyouthphilosophy@gmail.com.</p>';
+  }
+
+  function initJumpNav(){
+    const bar = $(".topbar");
+    const setH = ()=>{ if(bar) document.documentElement.style.setProperty("--topbar-h", bar.offsetHeight + "px"); };
+    setH(); window.addEventListener("resize", setH);
+    const links = $$(".mh-jump a");
+    const targets = links.map(a=>$(a.getAttribute("href"))).filter(Boolean);
+    if(!("IntersectionObserver" in window) || !targets.length) return;
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(!e.isIntersecting) return;
+        links.forEach(a=>a.classList.toggle("is-on", a.getAttribute("href") === "#" + e.target.id));
+      });
+    }, {rootMargin:"-30% 0px -60% 0px"});
+    targets.forEach(t=>io.observe(t));
   }
 
   function initChecklist(){
