@@ -76,8 +76,7 @@ insert into public.faqs (question, answer, sort) values
   ('Is there a theme?', 'No. Write on any philosophical question you want to argue about. What we ask for is an argument you develop and defend yourself, not a summary of what others have said.', 3),
   ('Which citation style and format?', 'APA style, with a full reference list at the end. Submit as a PDF, in English.', 4),
   ('Can I use AI?', 'Only for early research, such as tracking down sources or checking what a term means. Any AI-written text, including AI text run through a humaniser, disqualifies the essay automatically.', 5),
-  ('When is the next workshop?', 'We announce workshops here on the noticeboard first, then on Instagram (@logos_yp) and by email. Workshops are for registered students only.', 6),
-  ('I signed up but the hub says my account is pending. What now?', 'The team approves accounts against the registration list, usually within a day or two. If it has been longer, email logosyouthphilosophy@gmail.com from the address you signed up with.', 7)
+  ('When is the next workshop?', 'We announce workshops here on the noticeboard first, then on Instagram (@logos_yp) and by email. Workshops are for registered students only.', 6)
 on conflict do nothing;
 
 -- ---------- contacts ----------

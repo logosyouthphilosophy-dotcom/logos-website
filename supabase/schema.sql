@@ -45,8 +45,11 @@ create trigger members_normalise_trg
   before insert or update on public.members
   for each row execute function public.members_normalise();
 
--- When someone creates an account: link them to a pre-approved row if one
--- exists for their email, otherwise create a pending row for the team to approve.
+-- When someone creates an account: link them to an existing row if one exists
+-- for their email, otherwise create an approved row. Accounts are approved on
+-- sign-up; the team can still block an account from the admin page.
+-- To require manual approval instead, change the two 'approved' values below
+-- to 'pending' and re-run this function definition.
 create or replace function public.handle_new_auth_user()
 returns trigger language plpgsql security definer set search_path = public as $$
 declare
@@ -56,11 +59,12 @@ begin
   if exists (select 1 from public.members m where m.email = v_email) then
     update public.members
        set user_id = new.id,
-           name    = coalesce(nullif(name, ''), nullif(v_name, ''))
+           name    = coalesce(nullif(name, ''), nullif(v_name, '')),
+           status  = case when status = 'blocked' then status else 'approved' end
      where email = v_email;
   else
     insert into public.members (user_id, email, name, status)
-    values (new.id, v_email, nullif(v_name, ''), 'pending');
+    values (new.id, v_email, nullif(v_name, ''), 'approved');
   end if;
   return new;
 end $$;

@@ -43,7 +43,7 @@ Preview without a database: open `members.html?demo` or `members-admin.html?demo
 5. **Connect the site.** Project Settings, API: copy the Project URL and the
    `anon` `public` key into `members-config.js`. Commit and push. Netlify deploys.
 6. **Create the team accounts.** Go to `/members`, Create account, with
-   `logosyouthphilosophy@gmail.com` (pre-approved as team in seed.sql). You land in
+   `logosyouthphilosophy@gmail.com` (listed as team in seed.sql). You land in
    the hub with a "Team admin" button.
 
 ## Day to day (team)
@@ -59,16 +59,17 @@ Everything is at `/admin` (sign in at `/members` first).
 - **Announce a workshop:** Workshops, add it with a date and time. It shows as
   upcoming with its join link; after the date it moves to past and links to its
   resources.
-- **Approve members:** Members shows a count of pending accounts. Check the email
-  against the registration list, click Approve. To let people straight in, paste
-  their emails into "Pre-approve emails" before they sign up.
+- **Members:** accounts are approved automatically on sign-up. The Members tab
+  lists everyone; use Block for anyone who should not be there. To switch to
+  manual approval, see the comment above `handle_new_auth_user` in
+  `supabase/schema.sql`.
 - **Answer questions:** Questions shows what members have sent. Reply by email,
   mark answered. Recurring ones go into the FAQ.
 
 ## How access works
 
-- Anyone can create an account, but they see a holding page until a team member
-  approves them. Approval is matched to the registration list by hand.
+- Anyone can create an account and is approved immediately. A team member can
+  block an account from the admin page; blocked accounts see a holding page.
 - Roles: `member`, `chapter_lead`, `team`. Only `team` can open `/admin` or write
   anything. `chapter_lead` and the `chapter` field exist for the chapters
   programme; nothing uses them yet.
@@ -86,10 +87,9 @@ and monthly check-in records. None of that needs a migration of what exists.
 ## If something breaks
 
 - Hub says "not connected to its database": `members-config.js` is empty.
-- Sign-in works but hub shows "waiting for approval" for a team member: the
-  email in `members` does not exactly match (case or spelling) the one used to
-  sign up. Fix the row in `/admin` from another team account, or in the Supabase
-  Table Editor.
+- A team member signs in but has no "Team admin" button: the email in `members`
+  does not exactly match (case or spelling) the one used to sign up. Fix the row
+  in `/admin` from another team account, or in the Supabase Table Editor.
 - "Too many attempts": Supabase rate limit; wait a few minutes.
 - Resource link opens a Drive "request access" page: the file's sharing is not
   set to anyone with the link.
