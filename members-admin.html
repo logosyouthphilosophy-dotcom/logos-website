@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Team admin · Logos Youth Philosophy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="members.css">
+</head>
+<body>
+
+<header class="topbar">
+  <nav class="nav">
+    <a class="brand" href="index.html"><span class="mark">&#923;</span><span class="name">Logos</span></a>
+      <button class="nav-toggle" type="button" aria-label="Menu" aria-controls="siteMenu" aria-expanded="false">&#9776;</button>
+    <div class="menu" id="siteMenu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="journal.html">Journal</a>
+      <a href="podcast.html">Podcast</a>
+      <a href="resources.html">Resources</a>
+      <a href="workshop.html">Workshop</a>
+      <a href="members.html" class="active">Members</a>
+      <a href="register.html">Register</a>
+      <a href="submit.html" class="btn btn-solid">Submit</a>
+    </div>
+  </nav>
+  <hr class="rainbow">
+</header>
+
+<section class="block" id="deniedView" hidden>
+  <div class="wrap">
+    <div class="empty-note">
+      <div class="orn">&#1758;</div>
+      <h2>Team only.</h2>
+      <p id="deniedText">This page is for the Logos team. <a href="members.html">Back to the members hub</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="loadingView">
+  <div class="wrap"><p class="mh-loading">Checking access&hellip;</p></div>
+</section>
+
+<div id="adminView" hidden>
+  <section class="page-head mh-head">
+    <div class="wrap mh-head-row">
+      <div>
+        <p class="eyebrow">Team admin</p>
+        <h1>Run the hub.</h1>
+        <p>Post notices, add resources, approve members. Changes show on the hub immediately.</p>
+      </div>
+      <div class="mh-head-actions">
+        <a href="members.html" class="btn btn-outline">View hub &rarr;</a>
+      </div>
+    </div>
+  </section>
+  <p class="mh-demo-banner" id="demoBanner" hidden>Preview mode with sample data. Nothing you do here is saved.</p>
+
+  <section class="block" style="padding-top:0;">
+    <div class="wrap mh-admin-layout">
+      <nav class="mh-admin-nav" id="adminNav"></nav>
+      <div class="mh-admin-pane" id="adminPane"></div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap"><p class="foot-note">&copy; 2026 <em>Logos</em>. Team admin.</p></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="members-config.js"></script>
+<script src="members-demo-data.js"></script>
+<script src="members-data.js"></script>
+<script src="app.js"></script>
+<script src="members-admin.js"></script>
+</body>
+</html>
