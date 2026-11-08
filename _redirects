@@ -3,3 +3,5 @@
 /admin        /members-admin.html 200
 /register     /register.html    200
 /submit       /submit.html      200
+/resources    /register.html    301
+/resources.html    /register.html    301
