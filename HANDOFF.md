@@ -1,6 +1,6 @@
 # Logos website: handoff
 
-Pick-up notes for a new session. Last updated 8 November 2026.
+Pick-up notes for a new session. Last updated 8 November 2026 (evening).
 
 ## What this is
 
@@ -33,7 +33,18 @@ the onboarding email through Apps Script. The email and `register.html` both exp
 members portal and link to it. The portal is a separate corner button in the nav, not a
 heading alongside the other pages. `register.html` lists member benefits.
 
-**Design.** `styles.css` was rewritten twice and is now about 390 lines. One accent colour
+**Design, second pass (8 Nov evening).** The one-colour scheme was read as boring, so
+`styles.css` now has a short ladder of warm neutrals: white body, parchment `--bg-alt`,
+beige `--beige` (nav bar and callouts), maroon `--accent-dark` (the homepage register band),
+near-black `--dark` (footer). Interior page heads are centred on a parchment band, since
+there is no image beside them; the homepage hero keeps its two columns. "Member sign in"
+is an outlined button next to Register. The portal keeps its layout and Inter but takes
+its colours from the same ladder (`members.css` :root), and a returning member with a live
+session now lands on a "Welcome back" step (`#welcomeView`, `route({gate})` in
+`members.js`) instead of the hub appearing unannounced; one click enters, and a
+`sessionStorage` flag means a reload inside the hub does not show it again.
+
+**Design, first pass.** `styles.css` was rewritten twice and is now about 390 lines. One accent colour
 (`--accent: #8a2a2a`), near-black text, one warm off-white band (`--bg-alt: #f3f1ee`),
 `border-radius: 0` everywhere, all serif (EB Garamond; `--sans` is aliased to it so older
 rules still resolve). No Inter on the public site. Red rules sit above major headings via a
@@ -112,8 +123,18 @@ database row, so removing it from the code did nothing.
 13 October 2026. The onboarding email is driven off the Sheet, so roughly 65 people
 registered and never heard anything back. The competition deadline is 15 December.
 
-Two things to do: find out why the integration stopped, and work out exactly who was missed
-so they can be emailed. Pull the real list from Netlify, not the Sheet.
+**Cause, found 8 Nov evening.** Netlify → Forms → Submission notifications shows the
+outgoing webhook to the Apps Script web app (`script.google.com/macros/s/AKfycbzq…/exec`)
+as **Disabled: failed 6 times in a row**. Netlify switches a hook off after repeated
+4xx/5xx responses, so nothing has been posted to the script since mid-October. A second
+notification still emails `logosyouthphilosophy@gmail.com` on every submission, so the
+Logos inbox has all 258.
+
+Still to do: (a) work out why the script started erroring (most likely a redeploy that
+changed the `/exec` URL or its "Who has access" setting away from Anyone), fix that, then
+re-enable the hook by editing the notification; (b) compute the missed list from Netlify,
+not the Sheet. The Sheet is exported to `logos-data/registrations_sheet.csv` in the
+8 Nov session's workspace; 153 rows, 152 unique emails.
 
 ### 4. Follow-up reminder emails (built, not deployed)
 

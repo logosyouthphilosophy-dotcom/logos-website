@@ -1,29 +1,32 @@
 /* ===== Logos members portal =====
-   This file deliberately does NOT follow the public site's design.
-   The site is quiet and editorial. The portal is a corkboard: colour,
-   pinned posters, rounded cards, a dark sidebar. Prefix: mh- */
+   The portal keeps its own layout (a board of pinned posters beside a dark
+   sidebar, rounded cards, Inter for UI) but draws its colours from the public
+   site's ladder in styles.css so the two feel like one organisation. Prefix: mh- */
 
 :root{
-  --p-board:#e7dfd1;      /* corkboard surface */
+  /* Same ground as the public site: the board is the nav's beige, the
+     sidebar is the footer's near-black, the accent is the site maroon.
+     Category colours are kept for legibility but muted to sit with it. */
+  --p-board:var(--beige, #e8dfd0);
   --p-card:#ffffff;
-  --p-ink:#1c1917;
-  --p-body:#44403c;
-  --p-muted:#73695f;
+  --p-ink:#0d0d0f;
+  --p-body:#26262a;
+  --p-muted:#5c5c63;
   --p-line:#e2dbd1;
 
-  --p-side:#211e1b;
-  --p-side-2:#2c2825;
-  --p-side-text:#d9d2c8;
-  --p-side-dim:#8d8378;
+  --p-side:var(--dark, #1a1816);
+  --p-side-2:#2a2623;
+  --p-side-text:var(--on-dark, #e9e2d6);
+  --p-side-dim:var(--on-dark-dim, #b9b0a3);
 
   --p-accent:#8a2a2a;
 
-  --c-deadline:#c2412d;
-  --c-workshop:#17796b;
-  --c-journal:#2f6fa8;
-  --c-general:#b07d2a;
-  --c-updates:#6b4c9a;
-  --c-pinned:#c2412d;
+  --c-deadline:#8a2a2a;   /* maroon, the site accent */
+  --c-workshop:#3f6b4f;   /* deep green */
+  --c-journal:#3b5b7a;    /* slate blue */
+  --c-general:#a8762a;    /* ochre */
+  --c-updates:#6b4c6e;    /* plum */
+  --c-pinned:#8a2a2a;
 
   --p-ui:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
@@ -47,6 +50,12 @@
 .mh-loading::after{content:"";animation:dots 1.4s steps(4,end) infinite;}
 
 .mh-auth{padding-bottom:80px;}
+
+/* returning-member gate: the public site's centred page head, nothing more */
+.mh-welcome{min-height:calc(100vh - 220px);margin-bottom:0;padding-bottom:84px;}
+body:has(#welcomeView:not([hidden])) footer{margin-top:0;}
+.mh-welcome h1{font-size:clamp(42px,5.6vw,80px);}
+.mh-welcome .faq-ref{margin-top:28px;}
 .mh-auth-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
 @media(max-width:900px){.mh-auth-grid{grid-template-columns:1fr;gap:34px;}}
 .mh-auth-card{box-shadow:none;}
@@ -109,9 +118,9 @@ body.mh-app-on .topbar,body.mh-app-on footer,body.mh-app-on .to-top{display:none
 .d-resources{background:var(--c-journal);}
 .d-updates{background:var(--c-updates);}
 .d-quickref{background:var(--c-general);}
-.d-faq{background:#8d8378;}
-.d-contact{background:#8d8378;}
-.d-ask{background:#8d8378;}
+.d-faq{background:var(--p-side-dim);}
+.d-contact{background:var(--p-side-dim);}
+.d-ask{background:var(--p-side-dim);}
 
 .mh-side-foot{padding:14px 16px 20px;border-top:1px solid rgba(255,255,255,.08);display:grid;gap:8px;}
 .mh-who{margin:0 0 4px;font-size:13px;color:var(--p-side-dim);}
@@ -129,7 +138,7 @@ body.mh-app-on .topbar,body.mh-app-on footer,body.mh-app-on .to-top{display:none
   background-size:18px 18px;}
 .mh-bar{
   position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:14px;
-  padding:18px 32px;background:rgba(231,223,209,.92);backdrop-filter:blur(8px);
+  padding:18px 32px;background:rgba(232,223,208,.92);backdrop-filter:blur(8px);
   border-bottom:1px solid rgba(0,0,0,.07);
 }
 .mh-bar-title{margin:0;font-family:var(--p-ui);font-size:22px;font-weight:700;color:var(--p-ink);letter-spacing:-.01em;}
@@ -201,7 +210,7 @@ body.mh-app-on .topbar,body.mh-app-on footer,body.mh-app-on .to-top{display:none
 .mh-board .mh-notice .date{font-size:13px;color:var(--p-muted);}
 .mh-board .mh-notice .by{font-size:13px;color:var(--p-muted);margin-top:12px;}
 .mh-board .mh-notice.is-expired{opacity:.62;}
-.mh-board .mh-notice.is-pinned{background:#fffaf0;}
+.mh-board .mh-notice.is-pinned{background:#fbf7ef;}
 .mh-board .mh-notice.deadline::before{background:var(--c-deadline);}
 .mh-board .mh-notice.workshop::before{background:var(--c-workshop);}
 .mh-board .mh-notice.journal::before{background:var(--c-journal);}
@@ -215,10 +224,10 @@ body.mh-app-on .topbar,body.mh-app-on footer,body.mh-app-on .to-top{display:none
 .mh-pill{display:inline-block;font-family:var(--p-ui);font-size:11px;font-weight:700;
   letter-spacing:.07em;text-transform:uppercase;padding:4px 9px;border-radius:999px;
   background:rgba(0,0,0,.06);color:var(--p-muted);border:0;}
-.mh-pill.deadline{background:rgba(194,65,45,.13);color:#93301f;}
-.mh-pill.workshop{background:rgba(23,121,107,.13);color:#0f5a4f;}
-.mh-pill.journal{background:rgba(47,111,168,.14);color:#23557f;}
-.mh-pill.general{background:rgba(176,125,42,.16);color:#865c15;}
+.mh-pill.deadline{background:rgba(138,42,42,.13);color:#6f1f22;}
+.mh-pill.workshop{background:rgba(63,107,79,.14);color:#2c4f38;}
+.mh-pill.journal{background:rgba(59,91,122,.14);color:#2b4661;}
+.mh-pill.general{background:rgba(168,118,42,.16);color:#7a5518;}
 .mh-pill.new{background:var(--c-deadline);color:#fff;}
 .mh-pill.start{background:var(--c-workshop);color:#fff;}
 
@@ -242,7 +251,7 @@ body.mh-app-on .topbar,body.mh-app-on footer,body.mh-app-on .to-top{display:none
 .mh-link-card{display:block;text-decoration:none;color:inherit;padding-top:28px;}
 .mh-link-card::before{background:var(--c-updates);}
 .mh-link-card .kind{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.07em;
-  text-transform:uppercase;color:#4e3773;background:rgba(107,76,154,.14);
+  text-transform:uppercase;color:#4e3751;background:rgba(107,76,110,.14);
   padding:4px 9px;border-radius:999px;margin-bottom:10px;}
 .mh-link-card h3{font-family:var(--p-ui);font-size:19px;font-weight:700;line-height:1.25;
   color:var(--p-ink);margin:0 0 6px;letter-spacing:-.01em;}
@@ -308,7 +317,7 @@ body.mh-app-on .topbar,body.mh-app-on footer,body.mh-app-on .to-top{display:none
 .mh-res:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(60,40,20,.12), 0 16px 28px -14px rgba(60,40,20,.4);}
 .mh-res .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;}
 .mh-res .type{font-family:var(--p-ui);font-size:11px;font-weight:700;letter-spacing:.07em;
-  text-transform:uppercase;color:#23557f;background:rgba(47,111,168,.13);padding:4px 9px;border-radius:999px;}
+  text-transform:uppercase;color:#2b4661;background:rgba(59,91,122,.13);padding:4px 9px;border-radius:999px;}
 .mh-res h4{font-family:var(--p-ui);font-size:17px;font-weight:700;line-height:1.3;color:var(--p-ink);margin:0 0 6px;}
 .mh-res p{font-size:14.5px;color:var(--p-body);margin:0 0 14px;line-height:1.5;}
 .mh-res .open{margin-top:auto;font-size:13px;font-weight:700;color:var(--p-accent);}

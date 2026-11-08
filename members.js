@@ -4,7 +4,12 @@
   const $ = (s, el=document)=>el.querySelector(s);
   const $$ = (s, el=document)=>Array.from(el.querySelectorAll(s));
 
-  const views = { auth:$("#authView"), pending:$("#pendingView"), hub:$("#hubView"), loading:$("#loadingView") };
+  const views = { auth:$("#authView"), welcome:$("#welcomeView"), pending:$("#pendingView"), hub:$("#hubView"), loading:$("#loadingView") };
+  // Set once the member has chosen to enter this tab's session, so a reload
+  // inside the hub does not show the welcome gate again.
+  const ENTERED_KEY = "logos.members.entered";
+  const hasEntered = ()=>{ try{ return sessionStorage.getItem(ENTERED_KEY) === "1"; }catch(e){ return false; } };
+  const setEntered = (on)=>{ try{ on ? sessionStorage.setItem(ENTERED_KEY, "1") : sessionStorage.removeItem(ENTERED_KEY); }catch(e){} };
   function show(name){
     Object.keys(views).forEach(k=>{ views[k].hidden = k !== name; });
     document.body.classList.toggle("mh-app-on", name === "hub");
@@ -96,7 +101,7 @@
     const f = e.target;
     withBusy(f, async ()=>{
       await D.signIn(f.email.value.trim(), f.password.value);
-      await route();
+      await route({gate:false});
     });
   });
   $("#signupForm").addEventListener("submit", e=>{
@@ -105,7 +110,7 @@
     withBusy(f, async ()=>{
       await D.signUp(f.email.value.trim(), f.password.value, f.name.value.trim());
       const session = await D.getSession();
-      if(session){ await route(); }
+      if(session){ await route({gate:false}); }
       else { setMsg(authMsg, "Account created. Check your email to confirm it, then sign in."); showTab("signin"); }
     });
   });
@@ -123,14 +128,19 @@
     withBusy(f, async ()=>{
       await D.updatePassword(f.password.value);
       setMsg(authMsg, "Password saved.");
-      await route();
+      await route({gate:false});
     });
   });
-  $$("[data-signout]").forEach(b=>b.addEventListener("click", async ()=>{ await D.signOut(); show("auth"); showTab("signin"); }));
+  $$("[data-signout]").forEach(b=>b.addEventListener("click", async ()=>{ setEntered(false); await D.signOut(); show("auth"); showTab("signin"); }));
 
   /* ---------- routing ---------- */
   let recovering = false;
-  async function route(){
+  let pendingMe = null;
+  /* opts.gate: when true (the default, used on page load) a returning member
+     with a live session sees the welcome step instead of landing straight in
+     the hub. Sign-in and sign-up pass gate:false because the member just acted. */
+  async function route(opts){
+    const gate = !(opts && opts.gate === false);
     show("loading");
     try{
       const session = await D.getSession();
@@ -144,6 +154,13 @@
           : "Your account is waiting for approval. The team checks new accounts against the registration list, usually within a day or two.";
         show("pending"); return;
       }
+      if(gate && !hasEntered()){
+        pendingMe = me;
+        $("#welcomeName").textContent = (me.name || me.email.split("@")[0]).split(" ")[0];
+        $("#welcomeEmail").textContent = me.email || (session.user && session.user.email) || "";
+        show("welcome"); return;
+      }
+      setEntered(true);
       await renderHub(me);
       show("hub");
     }catch(e){
@@ -151,6 +168,16 @@
       show("auth"); setMsg(authMsg, friendly(e.message), true);
     }
   }
+  $("#enterHubBtn").addEventListener("click", async ()=>{
+    const btn = $("#enterHubBtn"); btn.setAttribute("aria-busy", "true");
+    try{
+      setEntered(true);
+      const me = pendingMe || await D.me();
+      await renderHub(me);
+      show("hub");
+    }catch(e){ console.error(e); show("auth"); setMsg(authMsg, friendly(e.message), true); }
+    finally{ btn.removeAttribute("aria-busy"); }
+  });
   D.onAuthChange((session, event)=>{
     if(event === "PASSWORD_RECOVERY"){ recovering = true; show("auth"); showTab("recovery"); }
     if(event === "SIGNED_OUT"){ recovering = false; }
