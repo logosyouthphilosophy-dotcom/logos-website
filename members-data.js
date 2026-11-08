@@ -90,7 +90,18 @@
       async fetchAll(){
         const results = await Promise.all(CONTENT_TABLES.map(t=>q(t)));
         const out = {};
-        CONTENT_TABLES.forEach((t,i)=>{ fail(results[i].error); out[t] = results[i].data || []; });
+        CONTENT_TABLES.forEach((t,i)=>{
+          const err = results[i].error;
+          // A table that has not been created yet should not take the whole hub
+          // down: that section renders empty and everything else still works.
+          if(err && (err.code === "42P01" || /does not exist|schema cache/i.test(err.message || ""))){
+            console.warn("Table " + t + " is missing. Run the SQL in supabase/schema.sql.");
+            out[t] = [];
+            return;
+          }
+          fail(err);
+          out[t] = results[i].data || [];
+        });
         return out;
       },
       async askQuestion(body){
