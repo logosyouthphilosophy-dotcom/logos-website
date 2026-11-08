@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 650" width="520" height="650" role="img" aria-label="An abstract page of an essay">
+  <rect width="520" height="650" fill="#f4f4f2"/>
+
+  <!-- margin rule -->
+  <line x1="72" y1="78" x2="72" y2="572" stroke="#e2e2e0" stroke-width="1"/>
+
+  <g stroke="#c9c9c5" stroke-width="7" stroke-linecap="butt">
+    <!-- title block -->
+    <line x1="104" y1="112" x2="396" y2="112" stroke="#8a2a2a" stroke-width="11"/>
+    <line x1="104" y1="140" x2="286" y2="140" stroke="#8a2a2a" stroke-width="11"/>
+
+    <!-- first paragraph -->
+    <line x1="104" y1="200" x2="440" y2="200"/>
+    <line x1="104" y1="226" x2="440" y2="226"/>
+    <line x1="104" y1="252" x2="414" y2="252"/>
+    <line x1="104" y1="278" x2="440" y2="278"/>
+    <line x1="104" y1="304" x2="336" y2="304"/>
+
+    <!-- indented quotation -->
+    <line x1="146" y1="356" x2="420" y2="356" stroke="#b4b4b0"/>
+    <line x1="146" y1="382" x2="420" y2="382" stroke="#b4b4b0"/>
+    <line x1="146" y1="408" x2="352" y2="408" stroke="#b4b4b0"/>
+
+    <!-- second paragraph -->
+    <line x1="104" y1="460" x2="440" y2="460"/>
+    <line x1="104" y1="486" x2="440" y2="486"/>
+    <line x1="104" y1="512" x2="440" y2="512"/>
+    <line x1="104" y1="538" x2="248" y2="538"/>
+  </g>
+
+  <!-- quotation rule -->
+  <line x1="122" y1="340" x2="122" y2="424" stroke="#8a2a2a" stroke-width="2"/>
+</svg>

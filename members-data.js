@@ -10,7 +10,7 @@
   // Not configured and not in demo mode: a locked backend that signs nobody in.
   let LOCKED = !DEMO && UNCONFIGURED;
 
-  const CONTENT_TABLES = ["sessions","resources","notices","key_dates","faqs","contacts"];
+  const CONTENT_TABLES = ["sessions","resources","notices","key_dates","faqs","contacts","links"];
 
   /* ---------------- demo backend ---------------- */
   function demoBackend(){
@@ -61,7 +61,8 @@
       faqs:      [["sort",{ascending:true}]],
       contacts:  [["sort",{ascending:true}]],
       members:   [["status",{ascending:true}],["created_at",{ascending:false}]],
-      questions: [["answered",{ascending:true}],["created_at",{ascending:false}]]
+      questions: [["answered",{ascending:true}],["created_at",{ascending:false}]],
+      links:     [["pinned",{ascending:false}],["posted_on",{ascending:false}]]
     };
     function q(table){
       let s = sb.from(table).select("*");

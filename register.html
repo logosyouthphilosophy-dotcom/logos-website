@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Register interest · Logos Youth Philosophy</title>
-<meta name="description" content="Register your interest in the Logos philosophy essay competition. Name, grade and school, nothing more.">
+<title>Become a member · Logos Youth Philosophy</title>
+<meta name="description" content="Register with Logos Youth Philosophy. Free membership: workshops with professors, the members portal, competition updates. One form, under a minute.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,86 +15,121 @@
 <header class="topbar">
   <nav class="nav">
     <a class="brand" href="index.html"><span class="mark">&#923;</span><span class="name">Logos</span></a>
-      <button class="nav-toggle" type="button" aria-label="Menu" aria-controls="siteMenu" aria-expanded="false">&#9776;</button>
+    <button class="nav-toggle" type="button" aria-label="Menu" aria-controls="siteMenu" aria-expanded="false">&#9776;</button>
     <div class="menu" id="siteMenu">
-      <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <a href="journal.html">Journal</a>
       <a href="podcast.html">Podcast</a>
-      <a href="resources.html">Resources</a>
       <a href="workshop.html">Workshop</a>
-      <a href="members.html">Members</a>
-      <a href="register.html" class="active">Register</a>
-      <a href="submit.html" class="btn btn-solid">Submit</a>
+      <a href="submit.html">Submit</a>
+    </div>
+    <div class="nav-end">
+      <a class="nav-portal" href="members.html">Member sign in</a>
+      <a class="btn btn-solid nav-cta is-on" href="register.html">Register</a>
     </div>
   </nav>
-  <hr class="rainbow">
 </header>
 
 <section class="page-head">
   <div class="wrap">
-    <p class="eyebrow">Register your interest</p>
-    <h1>Tell us you&rsquo;re interested.</h1>
-    <p>Thinking about entering the competition but not ready to write yet? Leave your name, email, grade and school. It takes under a minute, commits you to nothing, and helps us plan the first issue.</p>
+    <h1>Become a member</h1>
+    <p>One form, four fields. Membership is free, and it is how you get workshop invitations and access to the members portal.</p>
   </div>
 </section>
 
-<!-- WRITING WORKSHOP -->
-<section class="block" style="padding-top:48px;padding-bottom:0;">
-  <div class="wrap">
-    <div class="notice">
-      <img class="n-photo" src="team/fricker.jpg" alt="Professor Lizzie Fricker">
-      <div class="n-body">
-        <p class="pill">Workshop &middot; Held Saturday 3 October</p>
-        <h2>How to write philosophy, with Professor Lizzie Fricker</h2>
-        <p class="n-role">Taught philosophy at Oxford for nearly thirty years &middot; Emeritus Fellow, Magdalen College</p>
-        <p>Professor Fricker gave a free one-hour online workshop on how to write philosophically on 3 October. Workshops are open to registered students only, so fill in the form below and we'll email you when the next one is announced.</p>
-        <p style="margin-top:18px;"><a href="workshop.html" class="btn btn-solid">Workshop details &rarr;</a></p>
+<!-- WHAT MEMBERSHIP GIVES YOU -->
+<section class="block" style="padding-bottom:20px;">
+  <div class="wrap index">
+    <div class="index-head">
+      <h2>What membership gets you</h2>
+      <p>Registering makes you a member. It is free, and open to any secondary school student anywhere.</p>
+    </div>
+    <div class="index-body">
+    <div class="benefits">
+      <div class="benefit">
+        <h3>Workshops with professors</h3>
+        <p>Free online workshops on how to read and write philosophy, open to registered students only. Professor Lizzie Fricker, who taught at Oxford for nearly thirty years, gave the first one.</p>
       </div>
+      <div class="benefit">
+        <h3>The members portal</h3>
+        <p>Workshop recordings and handouts, reading lists, and a noticeboard of announcements and deadlines.</p>
+      </div>
+      <div class="benefit">
+        <h3>Competition updates</h3>
+        <p>Deadline reminders, guidance on what judges look for, and results before they go public. Submissions for the first issue close on 15 December 2026.</p>
+      </div>
+      <div class="benefit">
+        <h3>A direct line to us</h3>
+        <p>Ask the team a question from inside the portal and we answer it. Use it to talk an essay idea through before you commit to it, or when the rules are unclear.</p>
+      </div>
+    </div>
     </div>
   </div>
 </section>
 
-<!-- REGISTER INTEREST -->
-<section class="register" id="register-interest">
+<!-- REGISTRATION FORM -->
+<section class="block" style="padding-top:34px;padding-bottom:30px;" id="register-interest">
   <div class="wrap">
-    <p class="eyebrow">Register your interest</p>
-    <h2>Four quick questions</h2>
-    <p class="reg-intro">No essay, no commitment. Registering is also how you hear about our next writing workshop.</p>
-    <form name="register-interest" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thanks.html" class="reg-form">
+    <div class="reg-panel">
+      <h2>Four questions</h2>
+      <p class="reg-lede">Use an email you actually check. Your onboarding email and every workshop invitation go there.</p>
+
+      <form name="register-interest" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thanks.html" class="reg-panel-form">
         <input type="hidden" name="form-name" value="register-interest">
         <p class="reg-hp"><label>Leave this empty: <input name="bot-field"></label></p>
 
-        <div class="reg-field">
-          <label for="r-name">Full name</label>
-          <input id="r-name" name="name" type="text" required autocomplete="name" placeholder="Your name">
+        <div class="reg-grid">
+          <div>
+            <label for="r-name">Full name</label>
+            <input id="r-name" name="name" type="text" required autocomplete="name" placeholder="Your name">
+          </div>
+          <div>
+            <label for="r-email">Email address</label>
+            <input id="r-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com">
+          </div>
+          <div>
+            <label for="r-grade">Grade / year</label>
+            <select id="r-grade" name="grade" required>
+              <option value="" disabled selected>Select</option>
+              <option>Grade 9 / Year 10</option>
+              <option>Grade 10 / Year 11</option>
+              <option>Grade 11 / Year 12</option>
+              <option>Grade 12 / Year 13</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="r-school">School</label>
+            <input id="r-school" name="school" type="text" required placeholder="Your school">
+          </div>
         </div>
 
-        <div class="reg-field">
-          <label for="r-email">Email address</label>
-          <input id="r-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com">
+        <div class="reg-submit">
+          <button type="submit" class="btn-reg">Register</button>
         </div>
-
-        <div class="reg-field">
-          <label for="r-grade">Grade / year</label>
-          <select id="r-grade" name="grade" required>
-            <option value="" disabled selected>Select</option>
-            <option>Grade 9 / Year 10</option>
-            <option>Grade 10 / Year 11</option>
-            <option>Grade 11 / Year 12</option>
-            <option>Grade 12 / Year 13</option>
-            <option>Other</option>
-          </select>
-        </div>
-
-        <div class="reg-field">
-          <label for="r-school">School</label>
-          <input id="r-school" name="school" type="text" required placeholder="Your school">
-        </div>
-
-        <button type="submit" class="btn-reg">Register interest</button>
       </form>
-    <p class="reg-note">Four fields, takes under a minute. We use this only to gauge how many students are interested, keep you posted about future workshops, and let you know when submissions open. Nothing is shared with anyone outside <em>Logos</em>. Ready to enter properly? Head to the <a href="submit.html">submission guidelines</a>.</p>
+
+      <p class="reg-fine">We use your details to invite you to workshops, keep you posted on the competition, and match you to your portal account. Nothing is shared outside Logos. Already registered? Sign in at the <a href="members.html">members portal</a>, or read the <a href="submit.html">submission guidelines</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PORTAL STEP -->
+<section class="block" style="padding-top:0;">
+  <div class="wrap">
+    <div class="portal-step">
+      <div>
+        <h2>Then set up your portal account</h2>
+        <p>Registering puts you on the register and gets you the emails. A portal account is what lets you sign in and read the recordings, handouts and noticeboard.</p>
+        <p style="margin-bottom:24px;">Use the same email for both and we match them for you.</p>
+        <a href="members.html" class="btn btn-lg btn-teal">Open the members portal</a>
+      </div>
+      <ol class="step-list">
+        <li><strong>Register above.</strong> You go onto the register straight away.</li>
+        <li><strong>Check your inbox.</strong> Your onboarding email explains what is coming and links you to the portal.</li>
+        <li><strong>Create your account.</strong> Same email address, choose a password, and you are in. About thirty seconds.</li>
+      </ol>
+    </div>
   </div>
 </section>
 
@@ -102,7 +137,7 @@
   <div class="wrap foot">
     <div>
       <a class="brand" href="index.html"><span class="mark">&#923;</span><span class="name">Logos</span></a>
-      <p style="max-width:34ch;margin:18px 0 0;font-size:17px;color:var(--muted);"><em>Logos</em> Youth Philosophy. A student-led organisation making philosophy accessible.</p>
+      <p style="max-width:34ch;margin:18px 0 0;font-size:17px;color:var(--muted);">Logos Youth Philosophy. A student-led organisation making philosophy accessible.</p>
     </div>
     <div class="cols">
       <div>
@@ -110,7 +145,7 @@
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="journal.html">Journal</a>
-        <a href="podcast.html">Podcast</a><a href="resources.html">Resources</a>
+        <a href="podcast.html">Podcast</a>
         <a href="workshop.html">Workshop</a>
       </div>
       <div>
@@ -126,7 +161,7 @@
       </div>
     </div>
   </div>
-  <div class="wrap"><p class="foot-note">&copy; 2026 <em>Logos</em>. Student led · Middle East · Open for writers.</p></div>
+  <div class="wrap"><p class="foot-note">&copy; 2026 Logos. A student-led philosophy organisation in Dubai, open to writers anywhere.</p></div>
 </footer>
 
 <script src="app.js"></script>

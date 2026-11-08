@@ -52,7 +52,6 @@ on conflict do nothing;
 
 -- ---------- key dates ----------
 insert into public.key_dates (label, due_on, description, url) values
-  ('Chapter lead applications close', '2026-11-08', 'Applications for the international chapters programme close. One chapter lead is chosen per city.', null),
   ('Essay competition deadline',      '2026-12-15', 'Submissions for issue one of the journal close. 1,000 to 3,000 words, PDF, APA citations.', '/submit.html')
 on conflict do nothing;
 
@@ -84,4 +83,23 @@ insert into public.contacts (name, role, email, note, sort) values
   ('Logos team inbox', 'Anything about the journal, workshops or your account', 'logosyouthphilosophy@gmail.com', 'Emails come from this address. Check spam if you are missing one.', 1),
   ('Aleesha Naeem', 'Co-Founder', 'logosyouthphilosophy@gmail.com', null, 2),
   ('Smayan Sethi',  'Co-Founder', 'logosyouthphilosophy@gmail.com', null, 3)
+on conflict do nothing;
+
+-- ---------- philosophy updates ----------
+insert into public.links (title, url, source, kind, note, pinned, posted_on) values
+  ('Stanford Encyclopedia of Philosophy',
+   'https://plato.stanford.edu/',
+   'Stanford University', 'link',
+   'The place to get an overview of almost any topic. Start here, then read what the article cites.',
+   true, current_date),
+  ('Philosophy Bites',
+   'https://philosophybites.com/',
+   'Nigel Warburton and David Edmonds', 'podcast',
+   'Short interviews with philosophers on one idea each. Good for finding a question you care about.',
+   false, current_date),
+  ('Aeon: Philosophy',
+   'https://aeon.co/philosophy',
+   'Aeon', 'essay',
+   'Long-form essays by academics, written for people outside the field. A model for the kind of prose we want.',
+   false, current_date)
 on conflict do nothing;

@@ -7,8 +7,7 @@
   const views = { auth:$("#authView"), pending:$("#pendingView"), hub:$("#hubView"), loading:$("#loadingView") };
   function show(name){
     Object.keys(views).forEach(k=>{ views[k].hidden = k !== name; });
-    // the shared scroll-reveal cannot observe elements that were hidden at load; just show them
-    $$(".reveal", views[name]).forEach(el=>el.classList.add("is-in"));
+    document.body.classList.toggle("mh-app-on", name === "hub");
     window.scrollTo({top:0});
   }
 
@@ -62,6 +61,9 @@
   }
   const TYPE_LABEL = {handout:"Handout", slides:"Slides", recording:"Recording", reading:"Reading", exercise:"Exercise", template:"Template", link:"Link"};
   const CAT_LABEL = {general:"General", deadline:"Deadline", workshop:"Workshop", journal:"Journal", chapters:"Chapters"};
+  const KIND_LABEL = {news:"News", paper:"Paper", video:"Video", essay:"Essay", podcast:"Podcast", link:"Link"};
+  const PANE_TITLE = {board:"Noticeboard", dates:"Key dates", sessions:"Workshops", resources:"Resources",
+    updates:"Philosophy updates", quickref:"Submitting", faq:"FAQ", contact:"The team", ask:"Ask the team"};
 
   /* ---------- auth view ---------- */
   const authMsg = $("#authMsg");
@@ -166,7 +168,7 @@
     $("#adminLink").hidden = me.role !== "team";
     $("#demoBanner").hidden = !D.isDemo;
     data = await D.fetchAll();
-    renderDates(); renderNotices(); renderResources(); renderSessions(); renderFaq(); renderContacts(); initChecklist(); initJumpNav();
+    renderDates(); renderNotices(); renderResources(); renderSessions(); renderLinks(); renderFaq(); renderContacts(); initChecklist(); initPanes();
     localStorage.setItem(LAST_KEY, String(Date.now()));
   }
 
@@ -296,6 +298,20 @@
       (past.length ? `<p class="mh-small" style="margin:22px 0 4px;">Past</p>` + past.map(s=>card(s,false)).join("") : "");
   }
 
+  function renderLinks(){
+    const el = $("#linkList");
+    const items = (data.links||[]).slice().sort((a,b)=>(b.pinned - a.pinned) || (String(b.posted_on).localeCompare(String(a.posted_on))));
+    if(!items.length){ el.innerHTML = '<p class="mh-empty">Nothing posted yet. The team adds things worth reading here.</p>'; return; }
+    el.innerHTML = items.map(l=>`<a class="mh-link-card" href="${esc(l.url)}" target="_blank" rel="noopener">
+      <span class="kind">${esc(KIND_LABEL[l.kind]||l.kind)}</span>
+      ${l.pinned ? '<span class="mh-pill new" style="margin-left:6px;">Pinned</span>' : ""}
+      <h3>${esc(l.title)}</h3>
+      ${l.source ? `<p class="src">${esc(l.source)}${l.posted_on ? " &middot; " + esc(fmtDate(l.posted_on+"T00:00:00", {day:"numeric", month:"short"})) : ""}</p>` : ""}
+      ${l.note ? `<p class="note">${esc(l.note)}</p>` : ""}
+      <span class="go">Open</span>
+    </a>`).join("");
+  }
+
   function renderFaq(){
     const el = $("#faqList");
     const items = (data.faqs||[]).slice().sort((a,b)=>a.sort-b.sort);
@@ -314,20 +330,50 @@
     </div>`).join("") : '<p class="mh-empty">Email logosyouthphilosophy@gmail.com.</p>';
   }
 
-  function initJumpNav(){
-    const bar = $(".topbar");
-    const setH = ()=>{ if(bar) document.documentElement.style.setProperty("--topbar-h", bar.offsetHeight + "px"); };
-    setH(); window.addEventListener("resize", setH);
-    const links = $$(".mh-jump a");
-    const targets = links.map(a=>$(a.getAttribute("href"))).filter(Boolean);
-    if(!("IntersectionObserver" in window) || !targets.length) return;
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(!e.isIntersecting) return;
-        links.forEach(a=>a.classList.toggle("is-on", a.getAttribute("href") === "#" + e.target.id));
-      });
-    }, {rootMargin:"-30% 0px -60% 0px"});
-    targets.forEach(t=>io.observe(t));
+  let panesReady = false;
+  function openPane(name, pushHash){
+    if(!PANE_TITLE[name]) name = "board";
+    $$(".mh-pane").forEach(s=>{ s.hidden = s.dataset.pane !== name; s.classList.toggle("is-on", s.dataset.pane === name); });
+    $$(".mh-nav-item").forEach(b=>b.classList.toggle("is-on", b.dataset.pane === name));
+    const title = $("#paneTitle"); if(title) title.textContent = PANE_TITLE[name];
+    closeDrawer();
+    if(pushHash !== false && location.hash.slice(1) !== name){
+      history.replaceState(null, "", "#" + name);
+    }
+    window.scrollTo({top:0});
+  }
+  function closeDrawer(){
+    const side = $("#mhSide"), scrim = $("#mhScrim"), burger = $("#mhBurger");
+    if(side) side.classList.remove("is-open");
+    if(scrim) scrim.hidden = true;
+    if(burger) burger.setAttribute("aria-expanded", "false");
+  }
+  function initPanes(){
+    if(panesReady){ openPane(location.hash.slice(1) || "board", false); return; }
+    panesReady = true;
+    $$(".mh-nav-item").forEach(b=>b.addEventListener("click", ()=>openPane(b.dataset.pane)));
+    const burger = $("#mhBurger"), side = $("#mhSide"), scrim = $("#mhScrim");
+    if(burger) burger.addEventListener("click", ()=>{
+      const open = side.classList.toggle("is-open");
+      scrim.hidden = !open;
+      burger.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    if(scrim) scrim.addEventListener("click", closeDrawer);
+    document.addEventListener("keydown", e=>{ if(e.key === "Escape") closeDrawer(); });
+    // a resource anchor lives in another pane, so switch first and then scroll
+    document.addEventListener("click", e=>{
+      const a = e.target.closest('a[href^="#session-"]');
+      if(!a) return;
+      e.preventDefault();
+      openPane("resources");
+      const target = $(a.getAttribute("href"));
+      if(target) target.scrollIntoView({behavior:"smooth", block:"start"});
+    });
+    window.addEventListener("hashchange", ()=>{
+      const h = location.hash.slice(1);
+      if(PANE_TITLE[h]) openPane(h, false);
+    });
+    openPane(location.hash.slice(1) || "board", false);
   }
 
   function initChecklist(){

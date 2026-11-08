@@ -1,4 +1,4 @@
-/* ===== Logos Youth Philosophy — shared script =====
+/* ===== Logos Youth Philosophy, shared script =====
    1) bilingual (EN / AR) content dictionary + language toggle (RTL aware)
    2) university logo marquee                                            */
 
@@ -23,23 +23,6 @@ function buildMarquee(){
   track.innerHTML = copy + copy;
 }
 
-/* ---------- motion: scroll reveal ---------- */
-function initReveal(){
-  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const targets = document.querySelectorAll(
-    ".hero-copy, .hero-art, .split > div, .card, .founder, .callout, .contact-cta, .empty-note, .quote-band .q-inner, .page-head .wrap > *, .ornament, .langs-badge, .faq details, .guidelines li, .res-card"
-  );
-  targets.forEach(el=>el.classList.add("reveal"));
-  if(reduce || !("IntersectionObserver" in window)){
-    targets.forEach(el=>el.classList.add("is-in"));
-    return;
-  }
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("is-in"); io.unobserve(e.target); } });
-  }, {threshold:0.12, rootMargin:"0px 0px -8% 0px"});
-  targets.forEach(el=>io.observe(el));
-}
-
 /* ---------- motion: back-to-top ---------- */
 function initBackToTop(){
   const btn = document.createElement("button");
@@ -54,7 +37,6 @@ function initBackToTop(){
 document.addEventListener("DOMContentLoaded", ()=>{
   document.body.classList.add("js");
   buildMarquee();
-  initReveal();
   initBackToTop();
   requestAnimationFrame(()=>document.body.classList.add("loaded"));
 });
@@ -77,3 +59,16 @@ function initMobileNav(){
   window.addEventListener("resize", ()=>{ if(window.innerWidth > 860) close(); });
 }
 document.addEventListener("DOMContentLoaded", initMobileNav);
+
+/* ---------- submit feedback on the registration forms ---------- */
+function initFormFeedback(){
+  document.querySelectorAll("form[data-netlify]").forEach(form=>{
+    form.addEventListener("submit", ()=>{
+      const btn = form.querySelector("button[type=submit]");
+      if(!btn || btn.getAttribute("aria-busy") === "true") return;
+      btn.setAttribute("aria-busy","true");
+      btn.textContent = "Registering";
+    });
+  });
+}
+document.addEventListener("DOMContentLoaded", initFormFeedback);

@@ -132,6 +132,32 @@
       columns:["Name","Role","Email"],
       row:(c)=>[`<span class="t">${esc(c.name)}</span>`, esc(c.role||""), esc(c.email||"")],
       prepare:(v)=>{ v.sort = Number(v.sort||0); }
+    },
+    {
+      key:"links", label:"Updates", title:"Philosophy updates",
+      intro:"Outside philosophy worth a member's time: papers, essays, talks, videos, news. Not our own resources, those go under Workshop resources. Keep the note to one or two sentences saying why it is worth opening.",
+      fields:[
+        {name:"title", label:"Title", type:"text", required:true},
+        {name:"url", label:"Link", type:"url", required:true, placeholder:"https://..."},
+        {row:[
+          {name:"source", label:"Source", type:"text", placeholder:"Aeon, Stanford Encyclopedia, a professor's name"},
+          {name:"kind", label:"Kind", type:"select", options:["news","paper","video","essay","podcast","link"], default:"link"}
+        ]},
+        {name:"note", label:"Why it is worth reading", type:"textarea", rows:3},
+        {row:[
+          {name:"posted_on", label:"Posted on", type:"date", hint:"Leave blank for today."},
+          {name:"sort", label:"Order", type:"number", default:0}
+        ]},
+        {name:"pinned", label:"Pin to the top", type:"checkbox"}
+      ],
+      columns:["Update","Kind","Source","Posted"],
+      row:(l)=>[
+        `<span class="t">${esc(l.title)}</span><span class="sub"><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.url).slice(0,70)}</a></span>`,
+        `${esc(l.kind)}${l.pinned ? ' <span class="mh-pill">Pinned</span>' : ""}`,
+        esc(l.source || ""),
+        esc(l.posted_on ? fmt(l.posted_on+"T00:00:00") : "")
+      ],
+      prepare:(v)=>{ if(!v.posted_on) delete v.posted_on; }
     }
   ];
 
@@ -331,13 +357,14 @@
     {key:"key_dates", label:"Key dates"},
     {key:"faqs", label:"FAQ"},
     {key:"contacts", label:"Contacts"},
+    {key:"links", label:"Updates"},
     {key:"members", label:"Members", render:renderMembers},
     {key:"questions", label:"Questions", render:renderQuestions}
   ];
   async function openPane(key){
     $$("#adminNav button").forEach(b=>b.classList.toggle("is-on", b.dataset.key === key));
     history.replaceState(null, "", "#" + key);
-    $("#adminPane").innerHTML = '<p class="mh-loading">Loading...</p>';
+    $("#adminPane").innerHTML = '<p class="mh-loading">Loading</p>';
     try{
       const p = PANES.find(x=>x.key === key);
       if(p.render) await p.render();

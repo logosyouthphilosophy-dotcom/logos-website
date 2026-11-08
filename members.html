@@ -16,30 +16,28 @@
 <header class="topbar">
   <nav class="nav">
     <a class="brand" href="index.html"><span class="mark">&#923;</span><span class="name">Logos</span></a>
-      <button class="nav-toggle" type="button" aria-label="Menu" aria-controls="siteMenu" aria-expanded="false">&#9776;</button>
+    <button class="nav-toggle" type="button" aria-label="Menu" aria-controls="siteMenu" aria-expanded="false">&#9776;</button>
     <div class="menu" id="siteMenu">
-      <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <a href="journal.html">Journal</a>
       <a href="podcast.html">Podcast</a>
-      <a href="resources.html">Resources</a>
       <a href="workshop.html">Workshop</a>
-      <a href="members.html" class="active">Members</a>
-      <a href="register.html">Register</a>
-      <a href="submit.html" class="btn btn-solid">Submit</a>
+      <a href="submit.html">Submit</a>
+    </div>
+    <div class="nav-end">
+      <a class="nav-portal is-on" href="members.html">Member sign in</a>
+      <a class="btn btn-solid nav-cta" href="register.html">Register</a>
     </div>
   </nav>
-  <hr class="rainbow">
 </header>
 
 <!-- ======================= SIGN IN ======================= -->
 <section class="page-head mh-auth" id="authView" hidden>
   <div class="wrap mh-auth-grid">
     <div>
-      <p class="eyebrow">Members</p>
-      <h1>The members hub.</h1>
-      <p>Workshop recordings, handouts, announcements and deadlines, for students registered with <em>Logos</em>. Sign in with the email you registered with.</p>
-      <p class="faq-ref">Not registered yet? <a href="register.html">Register your interest</a> first, then create an account here with the same email.</p>
+      <h1>The members hub</h1>
+      <p>Workshop recordings, handouts, announcements and deadlines, for students registered with Logos. Sign in with the email you registered with.</p>
+      <p class="faq-ref">Not a member yet? <a href="register.html">Register first</a>, one form and under a minute, then create your account here with the same email and the two are matched automatically.</p>
     </div>
 
     <div class="mh-card mh-auth-card">
@@ -51,7 +49,7 @@
       <form id="signinForm" class="mh-form" data-tabpane="signin">
         <label>Email <input name="email" type="email" required autocomplete="email" placeholder="you@school.edu"></label>
         <label>Password <input name="password" type="password" required autocomplete="current-password" minlength="8"></label>
-        <button type="submit" class="btn btn-solid btn-lg">Sign in &rarr;</button>
+        <button type="submit" class="btn btn-solid btn-lg">Sign in</button>
         <button type="button" class="mh-link" id="forgotBtn">Forgot your password?</button>
       </form>
 
@@ -59,21 +57,21 @@
         <label>Full name <input name="name" type="text" required autocomplete="name" placeholder="Your name"></label>
         <label>Email <input name="email" type="email" required autocomplete="email" placeholder="The email you registered with"></label>
         <label>Password <input name="password" type="password" required autocomplete="new-password" minlength="8" placeholder="At least 8 characters"></label>
-        <button type="submit" class="btn btn-solid btn-lg">Create account &rarr;</button>
+        <button type="submit" class="btn btn-solid btn-lg">Create account</button>
         <p class="mh-small">Use the email you registered with so we can match you to the register.</p>
       </form>
 
       <form id="resetForm" class="mh-form" data-tabpane="reset" hidden>
         <p class="mh-small">Enter the email you signed up with and we will send a reset link.</p>
         <label>Email <input name="email" type="email" required autocomplete="email"></label>
-        <button type="submit" class="btn btn-solid btn-lg">Send reset link &rarr;</button>
+        <button type="submit" class="btn btn-solid btn-lg">Send reset link</button>
         <button type="button" class="mh-link" data-tab="signin">Back to sign in</button>
       </form>
 
       <form id="newPasswordForm" class="mh-form" data-tabpane="recovery" hidden>
         <p class="mh-small">Choose a new password.</p>
         <label>New password <input name="password" type="password" required autocomplete="new-password" minlength="8"></label>
-        <button type="submit" class="btn btn-solid btn-lg">Save password &rarr;</button>
+        <button type="submit" class="btn btn-solid btn-lg">Save password</button>
       </form>
 
       <p class="mh-msg" id="authMsg" role="status"></p>
@@ -85,8 +83,7 @@
 <section class="block" id="pendingView" hidden>
   <div class="wrap">
     <div class="empty-note">
-      <div class="orn">&#1758;</div>
-      <h2>You are nearly in.</h2>
+      <h2>You are nearly in</h2>
       <p id="pendingText">Your account is waiting for approval. The team checks new accounts against the registration list, usually within a day or two.</p>
       <p class="mh-small" style="margin-top:18px;">Signed in as <strong id="pendingEmail"></strong>. Wrong email? <button type="button" class="mh-link" data-signout>Sign out</button> and create an account with the one you registered with. Still stuck? Email <a href="mailto:logosyouthphilosophy@gmail.com">logosyouthphilosophy@gmail.com</a>.</p>
     </div>
@@ -95,184 +92,167 @@
 
 <!-- ======================= HUB ======================= -->
 <div id="hubView" hidden>
+<div class="mh-app">
 
-<section class="page-head mh-head" style="padding-bottom:40px;">
-  <div class="wrap mh-head-row">
-    <div>
-      <p class="eyebrow">Members hub</p>
-      <h1>Hello, <span id="helloName">there</span>.</h1>
-      <p>Everything from the writing workshops, plus announcements and deadlines, in one place. Please keep what is here inside the programme.</p>
+  <aside class="mh-side" id="mhSide">
+    <div class="mh-side-head">
+      <span class="mh-side-mark">&#923;</span>
+      <span class="mh-side-name">Members</span>
     </div>
-    <div class="mh-head-actions">
-      <a href="members-admin.html" class="btn btn-outline" id="adminLink" hidden>Team admin &rarr;</a>
-      <button type="button" class="btn btn-outline" data-signout>Sign out</button>
-    </div>
-  </div>
-</section>
-
-<div class="mh-sticky">
-  <div class="wrap">
-    <nav class="mh-jump" aria-label="Sections">
-      <a href="#dates">Dates</a>
-      <a href="#notices">Noticeboard</a>
-      <a href="#resources">Resources</a>
-      <a href="#sessions">Workshops</a>
-      <a href="#quickref">Submitting</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
-      <a href="#ask">Ask the team</a>
+    <nav class="mh-nav" aria-label="Portal sections">
+        <p class="mh-nav-label">Board</p>
+        <button type="button" class="mh-nav-item is-on" data-pane="board"><span class="nav-dot d-board"></span>Noticeboard</button>
+        <button type="button" class="mh-nav-item" data-pane="dates"><span class="nav-dot d-dates"></span>Key dates</button>
+        <p class="mh-nav-label">Programme</p>
+        <button type="button" class="mh-nav-item" data-pane="sessions"><span class="nav-dot d-sessions"></span>Workshops</button>
+        <button type="button" class="mh-nav-item" data-pane="resources"><span class="nav-dot d-resources"></span>Resources</button>
+        <p class="mh-nav-label">Beyond Logos</p>
+        <button type="button" class="mh-nav-item" data-pane="updates"><span class="nav-dot d-updates"></span>Philosophy updates</button>
+        <p class="mh-nav-label">Competition</p>
+        <button type="button" class="mh-nav-item" data-pane="quickref"><span class="nav-dot d-quickref"></span>Submitting</button>
+        <button type="button" class="mh-nav-item" data-pane="faq"><span class="nav-dot d-faq"></span>FAQ</button>
+        <p class="mh-nav-label">Help</p>
+        <button type="button" class="mh-nav-item" data-pane="contact"><span class="nav-dot d-contact"></span>The team</button>
+        <button type="button" class="mh-nav-item" data-pane="ask"><span class="nav-dot d-ask"></span>Ask the team</button>
     </nav>
-  </div>
+    <div class="mh-side-foot">
+      <p class="mh-who">Signed in as <strong id="helloName">there</strong></p>
+      <a href="members-admin.html" class="mh-side-btn" id="adminLink" hidden>Team admin</a>
+      <button type="button" class="mh-side-btn" data-signout>Sign out</button>
+      <a href="index.html" class="mh-side-btn">Back to the site</a>
+    </div>
+  </aside>
+
+  <div class="mh-scrim" id="mhScrim" hidden></div>
+
+  <main class="mh-main">
+    <header class="mh-bar">
+      <button type="button" class="mh-burger" id="mhBurger" aria-label="Open sections" aria-expanded="false">&#9776;</button>
+      <h1 class="mh-bar-title" id="paneTitle">Noticeboard</h1>
+    </header>
+
+    <p class="mh-demo-banner" id="demoBanner" hidden>Preview mode with sample data. Nothing you do here is saved.</p>
+
+    <div class="mh-panes">
+
+      <section class="mh-pane is-on" data-pane="board">
+        <div class="mh-pane-head">
+          <p class="mh-pane-note">Everything the team has pinned up. Newest first, pinned items stay on top.</p>
+          <div class="mh-filters" id="noticeFilters">
+            <button type="button" class="mh-chip is-on" data-cat="all">All</button>
+            <button type="button" class="mh-chip" data-cat="deadline">Deadlines</button>
+            <button type="button" class="mh-chip" data-cat="workshop">Workshops</button>
+            <button type="button" class="mh-chip" data-cat="journal">Journal</button>
+            <button type="button" class="mh-chip" data-cat="general">General</button>
+          </div>
+        </div>
+        <div class="mh-board" id="noticeList"></div>
+        <p class="mh-archive-row"><button type="button" class="mh-link" id="archiveToggle" hidden></button></p>
+      </section>
+
+      <section class="mh-pane" data-pane="dates" hidden>
+        <p class="mh-pane-note">What is coming up, and how long you have.</p>
+        <div class="mh-board mh-board-sm" id="datesGrid"></div>
+      </section>
+
+      <section class="mh-pane" data-pane="sessions" hidden>
+        <p class="mh-pane-note">Workshops with professors and working philosophers. Upcoming first.</p>
+        <div class="mh-sessions" id="sessionList"></div>
+      </section>
+
+      <section class="mh-pane" data-pane="resources" hidden>
+        <div class="mh-pane-head">
+          <p class="mh-pane-note">Recordings, handouts and readings from our own workshops.</p>
+          <div class="mh-filters">
+            <input type="search" id="resSearch" class="mh-search" placeholder="Search resources" aria-label="Search resources">
+            <div id="resTypeFilters">
+              <button type="button" class="mh-chip is-on" data-type="all">All</button>
+              <button type="button" class="mh-chip" data-type="start">Start here</button>
+              <button type="button" class="mh-chip" data-type="handout">Handouts</button>
+              <button type="button" class="mh-chip" data-type="recording">Recordings</button>
+              <button type="button" class="mh-chip" data-type="reading">Readings</button>
+              <button type="button" class="mh-chip" data-type="slides">Slides</button>
+              <button type="button" class="mh-chip" data-type="exercise">Exercises</button>
+              <button type="button" class="mh-chip" data-type="template">Templates</button>
+            </div>
+          </div>
+        </div>
+        <div id="resourceGroups"></div>
+      </section>
+
+      <section class="mh-pane" data-pane="updates" hidden>
+        <p class="mh-pane-note">Philosophy worth your time that is not ours: papers, essays, talks and news. Posted by the team.</p>
+        <div class="mh-board" id="linkList"></div>
+      </section>
+
+      <section class="mh-pane" data-pane="quickref" hidden>
+        <p class="mh-pane-note">The competition rules in one place. Full guidelines are on the <a href="submit.html">Submit page</a>.</p>
+        <div class="mh-ref">
+          <div class="mh-poster mh-facts-card">
+            <h3>At a glance</h3>
+            <div class="ws-facts mh-facts">
+              <div><span>Deadline</span><strong>15 Dec 2026</strong></div>
+              <div><span>Length</span><strong>1,000 to 3,000 words</strong></div>
+              <div><span>Format</span><strong>PDF, English</strong></div>
+              <div><span>Citations</span><strong>APA, with references</strong></div>
+              <div><span>Theme</span><strong>None. Any question.</strong></div>
+            </div>
+          </div>
+          <div class="mh-poster">
+            <h3>Before you send it</h3>
+            <ul class="mh-checklist" id="checklist">
+              <li><label><input type="checkbox" data-key="narrow"> <span>The question is narrow enough to treat rigorously in the word count. Not "free will" but one sub-issue inside it.</span></label></li>
+              <li><label><input type="checkbox" data-key="exegesis"> <span>The debate is set out clearly before my own argument starts. The exegesis is not skipped.</span></label></li>
+              <li><label><input type="checkbox" data-key="argument"> <span>There is a claim of my own that I build and defend, not a survey of other people's views.</span></label></li>
+              <li><label><input type="checkbox" data-key="plain"> <span>Plain prose: short sentences, defined terms, qualifiers and spare adjectives cut.</span></label></li>
+              <li><label><input type="checkbox" data-key="structure"> <span>Short sections with headings that say what each one does.</span></label></li>
+              <li><label><input type="checkbox" data-key="words"> <span>Between 1,000 and 3,000 words, not counting references.</span></label></li>
+              <li><label><input type="checkbox" data-key="apa"> <span>Every source credited in APA, websites included, with a reference list at the end.</span></label></li>
+              <li><label><input type="checkbox" data-key="ai"> <span>No AI-written or AI-reworded text anywhere in the essay. Any AI used for research is acknowledged.</span></label></li>
+              <li><label><input type="checkbox" data-key="pdf"> <span>Saved as a PDF with my name on it.</span></label></li>
+            </ul>
+            <p class="mh-small">Ticks are saved on this device only.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mh-pane" data-pane="faq" hidden>
+        <p class="mh-pane-note">The questions we get asked most.</p>
+        <div class="faq" id="faqList"></div>
+      </section>
+
+      <section class="mh-pane" data-pane="contact" hidden>
+        <p class="mh-pane-note">Who to go to, and for what.</p>
+        <div class="mh-contacts" id="contactList"></div>
+      </section>
+
+      <section class="mh-pane" data-pane="ask" hidden>
+        <div class="mh-poster mh-ask">
+          <h3>Something unclear?</h3>
+          <p>Send the team a question. We answer by email, and if several people ask the same thing it goes into the FAQ.</p>
+          <form id="askForm" class="mh-form">
+            <label>Your question <textarea name="body" rows="4" required minlength="10" placeholder="Ask about the competition, a workshop, or anything in here."></textarea></label>
+            <button type="submit" class="btn btn-solid">Send</button>
+          </form>
+          <p class="mh-msg" id="askMsg" role="status"></p>
+        </div>
+      </section>
+
+    </div>
+  </main>
 </div>
-
-<p class="mh-demo-banner" id="demoBanner" hidden>Preview mode with sample data. Nothing you do here is saved.</p>
-
-<!-- KEY DATES -->
-<section class="block mh-section" id="dates">
-  <div class="wrap">
-    <p class="eyebrow eyebrow-gold">Key dates</p>
-    <div class="mh-dates" id="datesGrid"></div>
-  </div>
-</section>
-
-<!-- NOTICEBOARD -->
-<section class="block mh-section" id="notices">
-  <div class="wrap">
-    <div class="mh-section-head">
-      <div>
-        <p class="eyebrow eyebrow-gold">Noticeboard</p>
-        <h2>Announcements</h2>
-      </div>
-      <div class="mh-filters" id="noticeFilters">
-        <button type="button" class="mh-chip is-on" data-cat="all">All</button>
-        <button type="button" class="mh-chip" data-cat="deadline">Deadlines</button>
-        <button type="button" class="mh-chip" data-cat="workshop">Workshops</button>
-        <button type="button" class="mh-chip" data-cat="journal">Journal</button>
-        <button type="button" class="mh-chip" data-cat="chapters">Chapters</button>
-        <button type="button" class="mh-chip" data-cat="general">General</button>
-      </div>
-    </div>
-    <div class="mh-notices" id="noticeList"></div>
-    <p class="mh-archive-row"><button type="button" class="mh-link" id="archiveToggle" hidden></button></p>
-  </div>
-</section>
-
-<!-- RESOURCES -->
-<section class="block mh-section" id="resources">
-  <div class="wrap">
-    <div class="mh-section-head">
-      <div>
-        <p class="eyebrow eyebrow-gold">Workshop resources</p>
-        <h2>Recordings, handouts and readings</h2>
-      </div>
-      <div class="mh-filters">
-        <input type="search" id="resSearch" class="mh-search" placeholder="Search resources" aria-label="Search resources">
-        <div id="resTypeFilters">
-          <button type="button" class="mh-chip is-on" data-type="all">All</button>
-          <button type="button" class="mh-chip" data-type="start">Start here</button>
-          <button type="button" class="mh-chip" data-type="handout">Handouts</button>
-          <button type="button" class="mh-chip" data-type="recording">Recordings</button>
-          <button type="button" class="mh-chip" data-type="reading">Readings</button>
-          <button type="button" class="mh-chip" data-type="slides">Slides</button>
-          <button type="button" class="mh-chip" data-type="exercise">Exercises</button>
-          <button type="button" class="mh-chip" data-type="template">Templates</button>
-        </div>
-      </div>
-    </div>
-    <div id="resourceGroups"></div>
-  </div>
-</section>
-
-<!-- WORKSHOPS -->
-<section class="block mh-section" id="sessions">
-  <div class="wrap">
-    <p class="eyebrow eyebrow-gold">Workshops</p>
-    <h2>Upcoming and past sessions</h2>
-    <div class="mh-sessions" id="sessionList"></div>
-  </div>
-</section>
-
-<!-- QUICK REFERENCE -->
-<section class="block mh-section" id="quickref">
-  <div class="wrap">
-    <div class="split">
-      <div>
-        <p class="eyebrow eyebrow-gold">Submitting to the journal</p>
-        <h2>Quick reference</h2>
-        <p>The rules in one place. Full guidelines are on the <a href="submit.html">Submit page</a>.</p>
-        <div class="ws-facts mh-facts">
-          <div><span>Deadline</span><strong>15 Dec 2026</strong></div>
-          <div><span>Length</span><strong>1,000 to 3,000 words</strong></div>
-          <div><span>Format</span><strong>PDF, English</strong></div>
-          <div><span>Citations</span><strong>APA, with references</strong></div>
-          <div><span>Theme</span><strong>None. Any question.</strong></div>
-        </div>
-      </div>
-      <div>
-        <p class="eyebrow eyebrow-gold" style="margin-bottom:10px;">Before you send it</p>
-        <ul class="mh-checklist" id="checklist">
-          <li><label><input type="checkbox" data-key="narrow"> <span>The question is narrow enough to treat rigorously in the word count. Not "free will" but one sub-issue inside it.</span></label></li>
-          <li><label><input type="checkbox" data-key="exegesis"> <span>The debate is set out clearly before my own argument starts. The exegesis is not skipped.</span></label></li>
-          <li><label><input type="checkbox" data-key="argument"> <span>There is a claim of my own that I build and defend, not a survey of other people's views.</span></label></li>
-          <li><label><input type="checkbox" data-key="plain"> <span>Plain prose: short sentences, defined terms, qualifiers and spare adjectives cut.</span></label></li>
-          <li><label><input type="checkbox" data-key="structure"> <span>Short sections with headings that say what each one does.</span></label></li>
-          <li><label><input type="checkbox" data-key="words"> <span>Between 1,000 and 3,000 words, not counting references.</span></label></li>
-          <li><label><input type="checkbox" data-key="apa"> <span>Every source credited in APA, websites included, with a reference list at the end.</span></label></li>
-          <li><label><input type="checkbox" data-key="ai"> <span>No AI-written or AI-reworded text anywhere in the essay. Any AI used for research is acknowledged.</span></label></li>
-          <li><label><input type="checkbox" data-key="pdf"> <span>Saved as a PDF with my name on it.</span></label></li>
-        </ul>
-        <p class="mh-small">Ticks are saved on this device only.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="block mh-section" id="faq">
-  <div class="wrap">
-    <p class="eyebrow eyebrow-gold">Questions we get a lot</p>
-    <h2>FAQ</h2>
-    <div class="faq" id="faqList"></div>
-  </div>
-</section>
-
-<!-- CONTACTS -->
-<section class="block mh-section" id="contact">
-  <div class="wrap">
-    <p class="eyebrow eyebrow-gold">Who to contact</p>
-    <h2>The team</h2>
-    <div class="mh-contacts" id="contactList"></div>
-  </div>
-</section>
-
-<!-- ASK -->
-<section class="block mh-section" id="ask">
-  <div class="wrap">
-    <div class="mh-card mh-ask">
-      <p class="eyebrow eyebrow-gold">Ask the team</p>
-      <h2 style="font-size:clamp(28px,3.4vw,40px);">Something unclear?</h2>
-      <p>Send the team a question. We answer by email, and if it is one several people are asking we add it to the FAQ above.</p>
-      <form id="askForm" class="mh-form">
-        <label>Your question <textarea name="body" rows="4" required minlength="10" placeholder="Ask about the competition, a workshop, or anything on this page."></textarea></label>
-        <button type="submit" class="btn btn-solid">Send &rarr;</button>
-      </form>
-      <p class="mh-msg" id="askMsg" role="status"></p>
-    </div>
-  </div>
-</section>
-
 </div><!-- /hubView -->
 
 <!-- LOADING -->
 <section class="block" id="loadingView">
-  <div class="wrap"><p class="mh-loading">Loading the hub&hellip;</p></div>
+  <div class="wrap"><p class="mh-loading">Loading the hub</p></div>
 </section>
 
 <footer>
   <div class="wrap foot">
     <div>
       <a class="brand" href="index.html"><span class="mark">&#923;</span><span class="name">Logos</span></a>
-      <p style="max-width:34ch;margin:18px 0 0;font-size:17px;color:var(--muted);"><em>Logos</em> Youth Philosophy. A student-led organisation making philosophy accessible.</p>
+      <p style="max-width:34ch;margin:18px 0 0;font-size:17px;color:var(--muted);">Logos Youth Philosophy. A student-led organisation making philosophy accessible.</p>
     </div>
     <div class="cols">
       <div>
@@ -281,7 +261,6 @@
         <a href="about.html">About</a>
         <a href="journal.html">Journal</a>
         <a href="podcast.html">Podcast</a>
-        <a href="resources.html">Resources</a>
         <a href="workshop.html">Workshop</a>
       </div>
       <div>
@@ -296,7 +275,7 @@
       </div>
     </div>
   </div>
-  <div class="wrap"><p class="foot-note">&copy; 2026 <em>Logos</em>. Student led · Middle East · Open for writers.</p></div>
+  <div class="wrap"><p class="foot-note">&copy; 2026 Logos. A student-led philosophy organisation in Dubai, open to writers anywhere.</p></div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>

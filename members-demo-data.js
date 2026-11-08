@@ -43,14 +43,11 @@
         body:"The recording of Professor Fricker's session and the two-page handout are now in the resources section. The handout is the one to read before you plan your essay. Please do not share either outside the programme." },
       { id:"n3", title:"Essay competition closes 15 December", category:"deadline", pinned:false, author:"Logos team", published_at:iso(now - 2*day), expires_on:"2026-12-15",
         body:"Submissions for issue one close on **15 December 2026**. Essays are 1,000 to 3,000 words, in English, as a PDF with APA citations. Any essay containing AI-written text is disqualified automatically. Read the full guidelines on the [Submit page](/submit.html) before you send anything." },
-      { id:"n4", title:"Chapter lead applications close 8 November", category:"chapters", pinned:false, author:"Logos team", published_at:iso(now - 5*day), expires_on:"2026-11-08",
-        body:"If you applied to lead a chapter in your city, we will be in touch after the deadline. Chapters launch local events in January and February." },
       { id:"n5", title:"An older notice that has expired", category:"general", pinned:false, author:"Logos team", published_at:iso(now - 30*day), expires_on:"2026-10-01",
         body:"This one is past its expiry date, so it only shows under the archive toggle." }
     ],
 
     key_dates: [
-      { id:"d1", label:"Chapter lead applications close", due_on:"2026-11-08", description:"Applications for the international chapters programme close. One chapter lead is chosen per city.", url:null },
       { id:"d2", label:"Essay competition deadline", due_on:"2026-12-15", description:"Submissions for issue one of the journal close. 1,000 to 3,000 words, PDF, APA citations.", url:"/submit.html" }
     ],
 
@@ -69,10 +66,18 @@
       { id:"c3", sort:3, name:"Smayan Sethi", role:"Co-Founder", email:"logosyouthphilosophy@gmail.com", note:null }
     ],
 
+    links: [
+      { id:"l1", title:"Stanford Encyclopedia of Philosophy", url:"https://plato.stanford.edu/", source:"Stanford University", kind:"link", pinned:true, posted_on:"2026-11-01",
+        note:"The place to get an overview of almost any topic. Start here, then read what the article cites." },
+      { id:"l2", title:"Philosophy Bites", url:"https://philosophybites.com/", source:"Nigel Warburton and David Edmonds", kind:"podcast", pinned:false, posted_on:"2026-10-28",
+        note:"Short interviews with philosophers on one idea each." },
+      { id:"l3", title:"Aeon: Philosophy", url:"https://aeon.co/philosophy", source:"Aeon", kind:"essay", pinned:false, posted_on:"2026-10-20",
+        note:"Long-form essays by academics, written for people outside the field." }
+    ],
     members: [
       { id:"m-demo", email:"you@example.com", name:"Demo member", role:"team", status:"approved", chapter:null, school:null, created_at:iso(now - 10*day) },
       { id:"m2", email:"student@example.com", name:"A Student", role:"member", status:"pending", chapter:null, school:"Example School", created_at:iso(now - day) },
-      { id:"m3", email:"lead@example.com", name:"A Chapter Lead", role:"chapter_lead", status:"approved", chapter:"Karachi", school:null, created_at:iso(now - 6*day) }
+      { id:"m3", email:"another@example.com", name:"Another Student", role:"member", status:"approved", chapter:null, school:"Example School", created_at:iso(now - 6*day) }
     ],
 
     questions: [

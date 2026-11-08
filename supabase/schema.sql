@@ -158,6 +158,23 @@ create table if not exists public.contacts (
   sort   int not null default 0
 );
 
+-- Curated outside philosophy: news, papers, videos, essays. Not our own
+-- resources. Team posts, every approved member reads.
+create table if not exists public.links (
+  id          uuid primary key default gen_random_uuid(),
+  title       text not null,
+  url         text not null,
+  source      text,
+  kind        text not null default 'link'
+              check (kind in ('news','paper','video','essay','podcast','link')),
+  note        text,
+  pinned      boolean not null default false,
+  posted_on   date not null default current_date,
+  sort        int not null default 0,
+  created_at  timestamptz not null default now()
+);
+create index if not exists links_posted_idx on public.links (posted_on desc);
+
 -- Questions from members to the team (one-way; not a forum)
 create table if not exists public.questions (
   id          uuid primary key default gen_random_uuid(),
@@ -178,6 +195,7 @@ alter table public.key_dates enable row level security;
 alter table public.faqs      enable row level security;
 alter table public.contacts  enable row level security;
 alter table public.questions enable row level security;
+alter table public.links     enable row level security;
 
 -- members: see your own row; team sees and manages everyone
 drop policy if exists members_select_own  on public.members;
@@ -191,7 +209,7 @@ create policy members_team_all on public.members
 do $$
 declare t text;
 begin
-  foreach t in array array['sessions','resources','notices','key_dates','faqs','contacts'] loop
+  foreach t in array array['sessions','resources','notices','key_dates','faqs','contacts','links'] loop
     execute format('drop policy if exists %I_member_read on public.%I', t, t);
     execute format('drop policy if exists %I_team_all on public.%I', t, t);
     execute format(
