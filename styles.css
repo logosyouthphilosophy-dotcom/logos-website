@@ -30,7 +30,8 @@
   --line:#dcdad6;
 
   /* faint fractal-noise paper grain, baked at low opacity; tiles seamlessly */
-  --paper:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27220%27%20height%3D%27220%27%3E%3Cfilter%20id%3D%27p%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.8%27%20numOctaves%3D%272%27%20stitchTiles%3D%27stitch%27%2F%3E%3CfeColorMatrix%20type%3D%27saturate%27%20values%3D%270%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27220%27%20height%3D%27220%27%20filter%3D%27url%28%23p%29%27%20opacity%3D%270.05%27%2F%3E%3C%2Fsvg%3E");
+  --paper:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27220%27%20height%3D%27220%27%3E%3Cfilter%20id%3D%27p%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.85%27%20numOctaves%3D%273%27%20stitchTiles%3D%27stitch%27%2F%3E%3CfeColorMatrix%20type%3D%27saturate%27%20values%3D%270%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27220%27%20height%3D%27220%27%20filter%3D%27url%28%23p%29%27%20opacity%3D%270.09%27%2F%3E%3C%2Fsvg%3E");
+  --seal:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20400%20400%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%238a2a2a%27%20stroke-opacity%3D%270.09%27%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27200%27%20r%3D%27188%27%20stroke-width%3D%272%27%2F%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27200%27%20r%3D%27171%27%20stroke-width%3D%271%27%2F%3E%3Cpath%20d%3D%27M200%20118%20L130%20288%20M200%20118%20L270%20288%27%20stroke-width%3D%2712%27%20stroke-linecap%3D%27round%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 
   /* back-compat aliases so any stray reference still resolves */
   --maroon:#8a2a2a;
@@ -131,20 +132,23 @@ h1,h2,h3,.q{text-wrap:balance;}
 /* retired decoration and filler, kept as no-ops so stray markup renders nothing */
 .rainbow,.ornament,.orn,.reg-micro,.langs-badge{display:none;}
 
-/* ---------- Hero ---------- */
-.hero{padding:80px 0 72px;}
-.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;}
-@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:36px;}}
+/* ---------- Hero (centred, matching the interior page heads) ---------- */
+.hero{position:relative;overflow:hidden;padding:96px 0 84px;margin-bottom:64px;
+  background:var(--paper),var(--bg-alt);text-align:center;}
+.hero > .wrap{position:relative;z-index:1;}
+/* faint Logos seal behind the title */
+.hero::before{content:"";position:absolute;top:50%;left:50%;z-index:0;pointer-events:none;
+  width:min(620px,86vw);height:min(620px,86vw);transform:translate(-50%,-50%);
+  background:var(--seal) center/contain no-repeat;}
 .hero h1{font-family:var(--serif);font-weight:500;color:var(--ink);
-  font-size:clamp(52px,7vw,104px);line-height:0.98;margin:0 0 26px;max-width:15ch;}
-.hero p.lead{font-size:23px;color:var(--body);max-width:44ch;margin:0 0 32px;line-height:1.5;}
+  font-size:clamp(52px,7vw,104px);line-height:0.98;margin:0 auto 26px;max-width:16ch;}
+.hero h1::before{margin-left:auto;margin-right:auto;}
+.hero p.lead{font-size:23px;color:var(--body);max-width:46ch;margin:0 auto 32px;line-height:1.5;}
+.hero .cta-row{justify-content:center;}
+.hero .faq-ref{margin-top:22px;}
 .cta-row{display:flex;gap:12px;flex-wrap:wrap;}
 .hero-langs{margin-top:16px;color:var(--muted);font-size:17px;}
-
-/* one paired image block, the only photograph on the site */
-.hero-art img{width:100%;height:auto;display:block;border-radius:0;}
-.hero-art-cap{display:block;margin-top:10px;font-family:var(--sans);font-size:15px;color:var(--muted);}
-@media(max-width:900px){.hero-art{max-width:380px;}}
+@media(max-width:640px){.hero{padding:64px 0 56px;margin-bottom:44px;}}
 
 .eyebrow{font-family:var(--sans);font-size:15px;font-weight:600;color:var(--muted);margin:0 0 14px;}
 .eyebrow-gold{color:var(--muted);}
