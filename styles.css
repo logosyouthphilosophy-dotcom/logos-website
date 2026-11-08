@@ -87,7 +87,9 @@ h1,h2,h3,.q{text-wrap:balance;}
 .split > div > h2{margin-bottom:0;}
 
 /* ---------- Nav ---------- */
-.topbar{position:sticky;top:0;z-index:50;background:var(--paper),var(--beige);border-bottom:1px solid var(--beige-line);}
+.topbar{position:sticky;top:0;z-index:50;background:var(--paper),var(--beige);border-bottom:1px solid var(--beige-line);
+  transition:box-shadow .25s ease;}
+.topbar.is-stuck{box-shadow:0 14px 30px -26px rgba(26,24,22,.9);}
 .topbar::after{content:"";display:block;height:3px;background:var(--accent);}
 .nav{display:flex;align-items:center;max-width:1120px;margin:0 auto;padding:18px 40px;gap:18px;}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);}
@@ -454,9 +456,38 @@ footer p{color:var(--on-dark-dim) !important;}
 .skeleton{background:var(--line);height:1em;animation:pulse 1.2s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:.4;}50%{opacity:.85;}}
 
-/* ---------- Motion ---------- */
-/* content is never hidden waiting on script */
+/* ---------- Classical ornaments ----------
+   Single-ink prints from the Logos picture set. Decorative only, so every one
+   carries an empty alt. Multiply lets the paper grain read through the ink. */
+.ornament{display:block;height:auto;mix-blend-mode:multiply;}
+.orn-sm{width:94px;}
+.orn-md{width:165px;}
+.orn-lg{width:235px;}
+.orn-hero{width:240px;margin:0 auto 30px;}
+.split > div > .ornament,.index-head > .ornament{margin-top:30px;}
+.empty-note > .ornament{margin-top:26px;}
+@media(max-width:860px){
+  .orn-lg{width:175px;}.orn-md{width:135px;}.orn-sm{width:78px;}.orn-hero{width:180px;}
+}
+
+/* ---------- Motion ----------
+   Content is visible by default. The hidden state below is scoped to
+   html.has-reveal, a class only ever added by initReveal() in app.js once it
+   has confirmed IntersectionObserver and no reduced-motion preference, and
+   app.js also carries a watchdog that reveals everything if the observer never
+   reports. So a script error, an old browser or a blocked file all leave the
+   page fully readable rather than blank. Do not move the hidden state out of
+   this scope: that is what hid whole sections on the live site before. */
 .reveal,body.js .reveal{opacity:1;transform:none;}
+html.has-reveal .reveal{opacity:0;transform:translateY(20px);
+  transition:opacity .72s cubic-bezier(.22,.61,.36,1), transform .72s cubic-bezier(.22,.61,.36,1);}
+html.has-reveal .reveal.is-in{opacity:1;transform:none;}
+html.has-reveal .ornament.reveal{transform:translateY(20px) scale(.97);}
+html.has-reveal .ornament.reveal.is-in{transform:none;}
+@media(prefers-reduced-motion:reduce){
+  html.has-reveal .reveal,html.has-reveal .ornament.reveal{
+    opacity:1 !important;transform:none !important;transition:none !important;}
+}
 
 .to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:0;
   border:0;background:var(--ink);color:#fff;font-size:18px;line-height:1;

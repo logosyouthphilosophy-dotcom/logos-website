@@ -72,3 +72,107 @@ function initFormFeedback(){
   });
 }
 document.addEventListener("DOMContentLoaded", initFormFeedback);
+
+/* ---------- Scroll reveal ----------------------------------------------
+   Safety first, because an earlier version of this hid whole sections on the
+   live site. The rule: nothing is ever hidden by CSS alone. This function adds
+   the `reveal` class AND the `has-reveal` scope only after it has confirmed
+   IntersectionObserver exists and the visitor has not asked for reduced
+   motion. If the script never runs, fails to parse, or throws, no class is
+   added and every section renders normally. A watchdog reveals everything if
+   the observer has not reported within 1.5s, and any throw reveals all. */
+var REVEAL_SEL = [
+  ".hero > .wrap > *",
+  ".page-head > .wrap > *",
+  "section.block > .wrap > h2",
+  "section.block > .wrap > p",
+  ".split > div",
+  ".index-head",
+  ".index-body > *",
+  ".cards > .card",
+  ".benefits > .benefit",
+  ".res-grid > .res-card",
+  ".stats .stat",
+  ".founders > .founder",
+  ".ws-facts > div",
+  ".guidelines > li",
+  ".faq details",
+  ".notice", ".callout", ".contact-cta", ".empty-note",
+  ".portal-step", ".reg-panel", ".ornament",
+  ".quote-band .q-inner", ".partners .label"
+].join(",");
+
+/* Count a stat up to the number already written in the markup. If this never
+   runs the final figure is simply there, because that is what the HTML says. */
+function countUp(stat){
+  var el = stat.querySelector(".num");
+  if(!el || el.dataset.counted) return;
+  var m = String(el.textContent).trim().match(/^(\d[\d,]*)(.*)$/);
+  if(!m) return;
+  el.dataset.counted = "1";
+  var target = parseInt(m[1].replace(/,/g, ""), 10), suffix = m[2], final = m[1] + suffix;
+  if(!isFinite(target) || target <= 0) return;
+  var dur = 1100, t0 = performance.now();
+  (function step(t){
+    var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(target * e).toLocaleString() + suffix;
+    if(p < 1) requestAnimationFrame(step); else el.textContent = final;
+  })(t0);
+}
+
+function initReveal(){
+  try{
+    if(document.getElementById("hubView")) return;          // portal has its own flow
+    if(!("IntersectionObserver" in window)) return;
+    if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    var els = Array.prototype.slice.call(document.querySelectorAll(REVEAL_SEL));
+    if(!els.length) return;
+
+    els.forEach(function(el){
+      el.classList.add("reveal");
+      var sibs = el.parentElement
+        ? Array.prototype.filter.call(el.parentElement.children, function(c){ return c.classList.contains("reveal"); })
+        : [];
+      var i = sibs.indexOf(el);
+      if(i > 0) el.style.transitionDelay = Math.min(i, 5) * 70 + "ms";
+    });
+    document.documentElement.classList.add("has-reveal");
+
+    var showAll = function(){ els.forEach(function(el){ el.classList.add("is-in"); }); };
+    var reported = false;
+    var io = new IntersectionObserver(function(entries){
+      reported = true;
+      entries.forEach(function(e){
+        if(!e.isIntersecting) return;
+        e.target.classList.add("is-in");
+        if(e.target.classList.contains("stat")) countUp(e.target);
+        io.unobserve(e.target);
+      });
+    }, {rootMargin: "0px 0px -8% 0px", threshold: 0.04});
+    els.forEach(function(el){ io.observe(el); });
+
+    setTimeout(function(){ if(!reported){ io.disconnect(); showAll(); } }, 1500);
+    window.addEventListener("beforeprint", showAll);
+  }catch(e){
+    document.documentElement.classList.remove("has-reveal");
+    Array.prototype.forEach.call(document.querySelectorAll(".reveal"), function(el){
+      el.classList.add("is-in");
+    });
+  }
+}
+
+/* nav lifts off the page once you scroll */
+function initStickyNav(){
+  var bar = document.querySelector(".topbar");
+  if(!bar) return;
+  var on = function(){ bar.classList.toggle("is-stuck", window.scrollY > 8); };
+  window.addEventListener("scroll", on, {passive: true});
+  on();
+}
+
+/* run now, not on DOMContentLoaded: this file is loaded at the end of <body>,
+   so the markup is ready and the first paint already shows the hidden state,
+   which avoids a flash of content that then disappears */
+initReveal();
+initStickyNav();

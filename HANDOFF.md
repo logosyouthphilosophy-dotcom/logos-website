@@ -48,14 +48,35 @@ session now lands on a "Welcome back" step (`#welcomeView`, `route({gate})` in
 (`--accent: #8a2a2a`), near-black text, one warm off-white band (`--bg-alt: #f3f1ee`),
 `border-radius: 0` everywhere, all serif (EB Garamond; `--sans` is aliased to it so older
 rules still resolve). No Inter on the public site. Red rules sit above major headings via a
-shared `::before` block. Section indexes use a two-column sticky layout. Scroll-reveal is
-deliberately inert: `.reveal { opacity: 1; transform: none; }`, and `initReveal()` is gone
-from `app.js`. Do not reinstate it — it was hiding whole sections on the live site.
+shared `::before` block. Section indexes use a two-column sticky layout. Scroll-reveal was inert
+through the first two passes after an earlier version hid whole sections live; it has since
+been rebuilt safely, see Motion below.
 
 Removed in that pass: all quotes (four of six were misattributed), all eyebrow headings,
 decorative symbols, pills and tags, cream backgrounds, Instrument Serif, section numbering,
 founder photos, and `resources.html` (now redirected to `/register.html`). The homepage
 opens with a two-column hero using `hero.svg`, a placeholder essay-page graphic.
+
+**Picture set and motion (8 Nov, third pass).** Five ornaments live in `art/`, extracted
+from Aleesha's own Instagram assets: `thinker`, `locke`, `aristotle`, `frieze`, `capital`.
+All five are rendered as transparent single-ink PNGs in one warm near-black so they read as
+a set, and all carry `alt=""` because they are decorative. Two had Instagram carousel
+arrows burnt into them: the one over the Aristotle bust was patched with mirrored hair
+texture, the one beside Locke was erased from empty space. Source files and the extraction
+parameters are not in the repo, so re-exporting means redoing that work — keep these PNGs.
+Placed via `.ornament` plus `.orn-sm/md/lg/hero`: frieze above the homepage title and in the
+podcast panel, Thinker on the homepage, capital on the homepage and workshop, Aristotle on
+about, Locke on journal.
+
+**Motion.** `initReveal()` in `app.js` fades sections up on scroll, staggered within a
+group, and counts the homepage stats up to the figures already written in the markup. The
+nav takes a shadow once scrolled. The safety rule, which is why this broke before: nothing
+is hidden by CSS alone. `initReveal()` adds both the `reveal` class and the
+`html.has-reveal` scope at runtime, and only after confirming IntersectionObserver and no
+reduced-motion preference; a watchdog reveals everything if the observer has not reported in
+1.5s, and any throw reveals all. So a script error, an old browser or a blocked file all
+leave the page fully readable. Verified on all eight public pages with JS on and off: zero
+elements end up hidden. If you touch this, re-run that check.
 
 **Members portal.** Rebuilt on a deliberately different design language from the public
 site — corkboard, more colour, Inter for UI, meant to feel engaging for a young audience.
@@ -161,7 +182,8 @@ the Fricker workshop already ran on 3 October.
 
 ### Optional
 
-- Replace `hero.svg` with a real workshop photo.
+- `hero.svg` is no longer used anywhere; the homepage hero is now centred text over a faint
+  seal watermark with the frieze above it. Delete the file or keep it as a spare.
 - Remove `chapter_lead` from the schema enum, the `/admin` dropdown, and the
   "Later: chapter leads" section of `MEMBERS-HUB.md`.
 
