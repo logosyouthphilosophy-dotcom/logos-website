@@ -68,7 +68,7 @@
   const CAT_LABEL = {general:"General", deadline:"Deadline", workshop:"Workshop", journal:"Journal", chapters:"Chapters"};
   const KIND_LABEL = {news:"News", paper:"Paper", video:"Video", essay:"Essay", podcast:"Podcast", link:"Link"};
   const PANE_TITLE = {board:"Noticeboard", dates:"Key dates", sessions:"Workshops", resources:"Resources",
-    updates:"Philosophy updates", quickref:"Submitting", faq:"FAQ", contact:"The team", ask:"Ask the team"};
+    updates:"Explore philosophy beyond Logos", quickref:"Submitting", faq:"FAQ", contact:"The team", ask:"Ask the team"};
 
   /* ---------- auth view ---------- */
   const authMsg = $("#authMsg");
